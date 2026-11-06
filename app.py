@@ -1,43 +1,40 @@
 
+
 import streamlit as st
 import joblib
 
 # Load trained model
-model = joblib.load(spam_rf_pipeline.pkl)
+model = joblib.load("spam_rf_pipeline.pkl")
 
 # Page configuration
 st.set_page_config(
-    page_title=SMS Spam Detection,
-    page_icon=📩,
-    layout=centered
+    page_title="SMS Spam Detection",
+    page_icon="📩",
+    layout="centered"
 )
 
-st.title(📩 SMS Spam Detection)
-st.write(Random Forest Machine Learning Model)
+st.title("📩 SMS Spam Detection")
+st.write("Random Forest Machine Learning Model")
 
-st.markdown(---)
+st.markdown("---")
 
-# User input
 message = st.text_area(
-    Enter your SMS Message,
-    placeholder=Type your message here...
+    "Enter your SMS Message:",
+    placeholder="Type your message here..."
 )
 
-if st.button(Predict Message, type=primary)
+if st.button("Predict Message"):
 
-    if message.strip() == 
-        st.warning(Please enter a message.)
+    if message.strip() == "":
+        st.warning("Please enter a message.")
 
-    else
+    else:
         prediction = model.predict([message])[0]
 
-        st.markdown(### Prediction Result)
+        if prediction == 1:
+            st.error("🚨 SPAM MESSAGE DETECTED!")
+        else:
+            st.success("✅ NORMAL (HAM) MESSAGE")
 
-        if prediction == 1
-            st.error(🚨 SPAM MESSAGE DETECTED!)
-
-        else
-            st.success(✅ NORMAL (HAM) MESSAGE)
-
-st.markdown(---)
-st.caption(Powered by Random Forest Classifier)
+st.markdown("---")
+st.caption("Powered by Random Forest Classifier")
